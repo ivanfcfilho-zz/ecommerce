@@ -3,6 +3,8 @@ from sqlalchemy import create_engine
 from flask_jsonpify import jsonify
 import simplejson
 
+id_counter = 0
+
 db_connect = create_engine('sqlite:///clientbase.db')
 
 @cherrypy.expose
@@ -24,9 +26,10 @@ class Client(object):
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
     def POST(self):
+        global id_counter
         conn = db_connect.connect()
         input_json = cherrypy.request.json
-        id = 1                              #como fazer? random?
+        id = id_counter                              #como fazer? random?
         name = input_json["name"]
         email = input_json["email"]
         cep = input_json["cep"]
@@ -39,6 +42,7 @@ class Client(object):
         query = conn.execute("insert into clients (ID, Name, Email, CEP, Phone1, CPF, Password, Birthday)"
                                              " values ({}, '{}', '{}', '{}', '{}', '{}', '{}' '{}', '{}')"
                                              .format(id, name, email, cep, phone1, cpf, sex, password, birthday))
+        id_counter += id_counter + 1
         return jsonify(query.cursor)
 
     @cherrypy.tools.json_out()

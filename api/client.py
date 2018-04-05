@@ -2,8 +2,8 @@ import cherrypy
 from sqlalchemy import create_engine
 from flask_jsonpify import jsonify
 import simplejson
-
-id_counter = 0
+import argon2
+import os
 
 db_connect = create_engine('sqlite:///clientbase.db')
 
@@ -19,31 +19,31 @@ class Client(object):
             return {'clients': [i[0] for i in query.cursor.fetchall()]} #fetches the id from all users
         else:
             conn = db_connect.connect()
-            query = conn.execute("select * from cients where EmployeeId =%d "  %int(clientid))
+            query = conn.execute("select * from clients where Id =%d "  %int(clientid))
             result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
             return jsonify(result)
 
     @cherrypy.tools.json_out()
     @cherrypy.tools.json_in()
     def POST(self):
-        global id_counter
         conn = db_connect.connect()
         input_json = cherrypy.request.json
-        id = id_counter                              #como fazer? random?
         name = input_json["name"]
         email = input_json["email"]
         cep = input_json["cep"]
         phone1 = input_json["phone1"]
         cpf = input_json["cpf"]
-        sex = input_json["sex"]
         password = input_json["password"]
         birthday = input_json["birthday"]
 
-        query = conn.execute("insert into clients (ID, Name, Email, CEP, Phone1, CPF, Password, Birthday)"
-                                             " values ({}, '{}', '{}', '{}', '{}', '{}', '{}' '{}', '{}')"
-                                             .format(id, name, email, cep, phone1, cpf, sex, password, birthday))
-        id_counter += id_counter + 1
-        return jsonify(query.cursor)
+        # Encrypting the password
+        salt = os.urandom(16)
+        pas = argon2.argon2_hash(password, salt)
+        pas = salt + pas
+        
+        query = conn.execute("insert into clients (Name, Email, CEP, Phone1, CPF, Password, Birthday)"
+                                             " values (?, ?, ?, ?, ?, ?, ?)", (name, email, cep, phone1, cpf, pas, birthday))
+        return {"Teste PUT":"Success"}#jsonify(query.cursor) - esta dando erro
 
     @cherrypy.tools.json_out()
     def PUT(self, clients=None):
@@ -52,5 +52,17 @@ class Client(object):
 
     @cherrypy.tools.json_out()
     def DELETE(self, clients=None):
-        #Remove clients
+        if clients is None:
+            return {"Code":1, "Message":"Parameter Missing"}
+        sql = "DELETE FROM clients WHERE id=?"
+        for i in range(1, len(clients)):
+            sql += " AND id=?"
+        sql += ";"
+        conn = db_connect.connect()
+        conn.execute(sql, clients)
         return {"Teste DELETE":"Success"}
+        
+        
+        
+        
+        

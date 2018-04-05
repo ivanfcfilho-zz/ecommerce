@@ -2,3 +2,5 @@ CherryPy==14.0.1
 Flask-Jsonpify==1.5.0
 SQLAlchemy==1.2.5
 simplejson==3.13.2
+argon2==0.1.10
+PyJWT==1.6.1

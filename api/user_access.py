@@ -38,6 +38,7 @@ class UserAccess(object):
         pas = argon2.argon2_hash(password, salt)
         if pas == pas_true:
             payload = {'exp':datetime.datetime.utcnow() + datetime.timedelta(hours=1) } #token dura 1h
-            encode = jwt.encode(payload, secret, algorithm='HS256')
-            return encode
+            token = jwt.encode(payload, secret, algorithm='HS256')
+            json_out = {'token':token}
+            return json_out
         return {"Code 3":"Password or email do not match"}

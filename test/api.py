@@ -1,6 +1,4 @@
 import requests
-import simplejson
-import jwt
 
 s = requests.Session()
 
@@ -28,7 +26,8 @@ print('Status: %s\nReturn: %s\n' % (r.status_code, r.text))
 print('Testing UserAccess POST: http://127.0.0.1:8080/api/useraccess')
 r = s.post('http://127.0.0.1:8080/api/useraccess', json={"email": "songoku@email.com", "password": "kakaroto"})
 print('Status: %s\nReturn: %s\n' % (r.status_code, r.text))
-token = r.text
+result = r.json()
+token = result['token']
 
 print('Testing UserAccess GET: http://127.0.0.1:8080/api/useraccess')
 r = s.get('http://127.0.0.1:8080/api/useraccess', params={'token':token})

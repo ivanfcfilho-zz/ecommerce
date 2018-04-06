@@ -9,6 +9,8 @@ if __name__ == '__main__':
             'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
             'tools.response_headers.on': True,
             'tools.response_headers.headers': [('Content-Type', 'application/json')],
+            'log.access_file': 'log_access_file.txt',
+            'log.error_file': 'log_application_file.txt'
         },
     }
 

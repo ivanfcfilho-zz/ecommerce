@@ -1,9 +1,7 @@
 import cherrypy
 from sqlalchemy import create_engine
 from sqlalchemy import exc
-from flask_jsonpify import jsonify
 import simplejson
-import argon2
 import os
 
 db_connect = create_engine('sqlite:///clientbase.db')
@@ -49,13 +47,13 @@ class Client(object):
         sex = input_json["sex"]
 
         # Encrypting the password
-        salt = os.urandom(16)
-        pas = argon2.argon2_hash(password, salt)
-        pas = salt + pas
+        #salt = os.urandom(16)
+        #pas = argon2.argon2_hash(password, salt)
+        #pas = salt + pas
         
         try:
             query = conn.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
-                                             " values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (name, email, cep, phone1, phone2, cpf, pas, birthday, sex))
+                                             " values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             new_id = query.lastrowid
             cherrypy.log("{}: Inseriu cliente com ID = {} e email = {}".format(cherrypy.request.headers['Remote-Addr'], new_id, email)) # add on log
             return {"Teste PUT":"Success", "Client ID":new_id}#jsonify(query.cursor) - esta dando erro

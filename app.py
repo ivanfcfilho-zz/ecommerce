@@ -18,7 +18,6 @@ if __name__ == '__main__':
         'tools.encode.encoding': 'utf-8',
         'tools.decode.on': True,
         'tools.gzip.on': False,
-        'server.socket_port': 80,
         'environment': 'production'
     })
 

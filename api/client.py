@@ -4,7 +4,7 @@ from sqlalchemy import exc
 import simplejson
 import os
 
-db_connect = create_engine('sqlite:///clientbase.db')
+db_connect = create_engine('sqlite:///data/db/clientbase.db')
 
 @cherrypy.expose
 class Client(object):

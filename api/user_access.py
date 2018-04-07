@@ -4,7 +4,7 @@ import datetime
 import argon2
 import jwt
 
-db_connect = create_engine('sqlite:///clientbase.db')
+db_connect = create_engine('sqlite:///data/db/clientbase.db')
 secret = 'qualquercoisa'
 
 @cherrypy.expose

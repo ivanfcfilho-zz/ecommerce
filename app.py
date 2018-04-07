@@ -20,7 +20,7 @@ if __name__ == '__main__':
         'tools.decode.on': True,
         'tools.gzip.on': False,
         'environment': 'production',
-        'server.socket_port': int(os.environ.get('PORT', 5000)),
+        'server.socket_port': 8080,
     })
 
     cherrypy.tree.mount(Client(),           '/api/client/',     rest_conf)

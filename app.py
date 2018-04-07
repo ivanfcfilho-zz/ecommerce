@@ -18,7 +18,8 @@ if __name__ == '__main__':
         'tools.encode.encoding': 'utf-8',
         'tools.decode.on': True,
         'tools.gzip.on': False,
-        'environment': 'production'
+        'environment': 'production',
+        'server.socket_port': int(os.environ.get('PORT', 5000)),
     })
 
     cherrypy.tree.mount(Client(),           '/api/client/',     rest_conf)

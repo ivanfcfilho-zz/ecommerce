@@ -37,6 +37,8 @@ print('Status: %s\nReturn: %s\n' % (r.status_code, r.text))
 print('Testing UserAccess POST: http://127.0.0.1:8080/api/useraccess')
 r = s.post('http://127.0.0.1:8080/api/useraccess', json={"email": json_in["email"], "password": json_in["password"]})
 print('Status: %s\nReturn: %s\n' % (r.status_code, r.text))
+if r.status_code == 500:
+    sys.exit(0)
 result = r.json()
 token = result['token']
 

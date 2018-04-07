@@ -16,6 +16,5 @@ if __name__ == '__main__':
 
     cherrypy.tree.mount(Client(),           '/api/client/',     rest_conf)
     cherrypy.tree.mount(UserAccess(),       '/api/useraccess/',  rest_conf)
-    cherrypy.config.update({'server.socket_port': 80})
     cherrypy.engine.start()
     cherrypy.engine.block()

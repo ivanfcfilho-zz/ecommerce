@@ -1,6 +1,7 @@
 import cherrypy
 from api.client import Client
 from api.user_access import UserAccess
+import os
 
 if __name__ == '__main__':
     rest_conf = {

@@ -13,6 +13,14 @@ if __name__ == '__main__':
             'log.error_file': 'log_application_file.txt'
         },
     }
+    cherrypy.config.update({
+        'tools.encode.on': True,
+        'tools.encode.encoding': 'utf-8',
+        'tools.decode.on': True,
+        'tools.gzip.on': False,
+        'server.socket_port': 80,
+        'environment': 'production'
+    })
 
     cherrypy.tree.mount(Client(),           '/api/client/',     rest_conf)
     cherrypy.tree.mount(UserAccess(),       '/api/useraccess/',  rest_conf)

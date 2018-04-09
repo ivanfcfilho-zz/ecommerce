@@ -3,7 +3,6 @@ from flask import jsonify
 from flask import request
 from sqlalchemy import create_engine
 from sqlalchemy import exc
-import simplejson
 import argon2
 import os
 

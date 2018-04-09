@@ -1,29 +1,18 @@
-import cherrypy
+from flask import Flask
+from flask_restful import Api
 from api.client import Client
 from api.user_access import UserAccess
-import os
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+api = Api(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///static/db/test.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+api.add_resource(Client, '/api/client')
+api.add_resource(UserAccess, '/api/useraccess')
 
 if __name__ == '__main__':
-    rest_conf = {
-        '/': {
-            'tools.sessions.on': True,
-            'request.dispatch': cherrypy.dispatch.MethodDispatcher(),
-            'tools.response_headers.on': True,
-            'tools.response_headers.headers': [('Content-Type', 'application/json')],
-            'log.access_file': 'log_access_file.txt',
-            'log.error_file': 'log_application_file.txt'
-        },
-    }
-    cherrypy.config.update({
-        'tools.encode.on': True,
-        'tools.encode.encoding': 'utf-8',
-        'tools.decode.on': True,
-        'tools.gzip.on': False,
-        'environment': 'production',
-        'server.socket_port': 8080,
-    })
-
-    cherrypy.tree.mount(Client(),           '/api/client/',     rest_conf)
-    cherrypy.tree.mount(UserAccess(),       '/api/useraccess/',  rest_conf)
-    cherrypy.engine.start()
-    cherrypy.engine.block()
+    app.run(debug=True)

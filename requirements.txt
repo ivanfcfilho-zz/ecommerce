@@ -1,6 +1,9 @@
-CherryPy==14.0.1
+Flask==0.11.1
+Flask-RESTful==0.3.5
+Flask-SQLAlchemy==2.1
 Flask-Jsonpify==1.5.0
 SQLAlchemy==1.2.5
-simplejson==3.13.2
 argon2==0.1.10
 PyJWT==1.6.1
+gunicorn==19.6.0
+

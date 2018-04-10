@@ -3,6 +3,7 @@ from flask import jsonify
 from flask import request
 from sqlalchemy import create_engine
 from sqlalchemy import exc
+import logging
 import argon2
 import os
 
@@ -15,7 +16,7 @@ class Client(Resource):
         if clientid == None:
             conn = db_connect.connect() # connect to database
             query = conn.execute("select ID from clients") # performs query
-            #cherrypy.log("{}: Pegou IDs de todos clientes".format(cherrypy.request.headers['Remote-Addr'])) # add on log
+            logging.info("Pegou IDs de todos clientes") # add on log
             return {'clients': [i[0] for i in query.cursor.fetchall()]} #fetches the id from all users
         else:
             # Select all data, but password
@@ -26,14 +27,15 @@ class Client(Resource):
             conn = db_connect.connect()
             query = conn.execute(sql, clientid)
             result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
-            #cherrypy.log("{}: Pegou dados de cliente(s) com ID = {}".format(cherrypy.request.headers['Remote-Addr'], clientid)) # add on log
+            logging.info("Pegou dados de cliente(s) com ID = {}".format(clientid)) # add on log
             return jsonify(result)
 
     def post(self):
-        #cherrypy.log("{}: Cadastrando usuario".format(cherrypy.request.headers['Remote-Addr'])) # add on log
         data = request.get_json()
-        name = data.get("name")
+        if data is None:
+            return {'Code':2, 'Message':'Missing Parameter'}, 500
         email = data.get("email")
+        name = data.get("name")
         cep = data.get("cep")
         phone1 = data.get("phone1")
         phone2 = data.get("phone2")
@@ -41,6 +43,8 @@ class Client(Resource):
         password = data.get("password")
         birthday = data.get("birthday")
         sex = data.get("sex")
+        if email is None or name is None or phone1 is None or cpf is None or password is None :
+            return {'Code':2, 'Message':'Missing Parameter'}, 500
 
         # Encrypting the password
         salt = os.urandom(16)
@@ -52,17 +56,16 @@ class Client(Resource):
             query = conn.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (name, email, cep, phone1, phone2, cpf, pas, birthday, sex))
             new_id = query.lastrowid
-            #cherrypy.log("{}: Inseriu cliente com ID = {} e email = {}".format(cherrypy.request.headers['Remote-Addr'], new_id, email)) # add on log
-            return {"Teste PUT":"Success", "Client ID":new_id}#jsonify(query.cursor) - esta dando erro
+            logging.info("Inseriu cliente com ID = {} e email = {}".format(new_id, email)) # add on log
+            return {"Message":"Post Success", "Client ID":new_id}
         except exc.IntegrityError:
-            #cherrypy.log("{}: Tentou inserir cliente com email = {}. Email já cadastrado".format(cherrypy.request.headers['Remote-Addr'], email)) # add on log
-            #cherrypy.response.status = 500
+            logging.info("Tentou inserir cliente com email = {}. Email já cadastrado", email) # add on log
             return {'Code':1, 'Message':'Email already registered'}, 500
-        return {"POST":"Success"}
+        return {'Code':3, 'Message':'Internal Error'}, 500
             
     def put(self):
         #Update clients
-        return {"PUT":"Success"}
+        return {"Message":"Put Success"}
 
     def delete(self):
         clientid = request.args.get('clientid')
@@ -74,8 +77,8 @@ class Client(Resource):
         sql += ";"
         conn = db_connect.connect()
         conn.execute(sql, clientid)
-        #cherrypy.log("{}: Removeu cliente(s) com ID = {}".format(cherrypy.request.headers['Remote-Addr'], clientid)) # add on log
-        return {"DELETE":"Success"}
+        logging.info("Removeu cliente(s) com ID = {}".format(clientid)) # add on log
+        return {"Message":"Delete Success"}
         
         
         

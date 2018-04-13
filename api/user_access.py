@@ -19,6 +19,7 @@ class UserAccess(Resource):
             logging.info("{}: Sem token") # add on log
             return {'Code':1, 'Message':'Missing Input'}, 500
         try:
+            token = token.encode()
             jwt.decode(token, secret, algorithm='HS256')
             logging.info("Token válido") # add on log
             return {"Message":"Success"}
@@ -56,6 +57,7 @@ class UserAccess(Resource):
         if pas == pas_true:
             payload = {'exp':datetime.datetime.utcnow() + datetime.timedelta(hours=1) } #token dura 1h
             token = jwt.encode(payload, secret, algorithm='HS256')
+            token = token.decode("utf-8") 
             json_out = {'token':token}
             logging.info("Login com sucesso") # add on log
             return jsonify(json_out)

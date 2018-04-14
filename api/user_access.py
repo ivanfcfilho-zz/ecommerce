@@ -47,7 +47,7 @@ class UserAccess(Resource):
         result = query.cursor.fetchone()
         if result is None:
             logging.info("Email não encontrado") # add on log
-            {'Code':1, 'Message':"Password or email do not match"}, 500
+            return {'Code':1, 'Message':"Password or email do not match"}, 500
         result = result[0]
         salt = result[:16]
         pas_true = result[16:]

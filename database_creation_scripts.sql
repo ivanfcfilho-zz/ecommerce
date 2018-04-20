@@ -1,6 +1,4 @@
-CREATE TABLE clients (ID INTEGER NOT NULL, Name varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, CEP int, Phone1 varchar(32), Phone2 varchar(32), CPF varchar(16) NOT NULL, Password LargeBinary NOT NULL, Birthday varchar(16), Sex boolean, PRIMARY KEY (ID));
-
-CREATE TABLE client_access (access_token varchar(255) NOT NULL, ID int NOT NULL, PRIMARY KEY (access_token), FOREIGN KEY (ID) REFERENCES clients(ID));
+CREATE TABLE clients (ID INTEGER NOT NULL, Name varchar(255) NOT NULL, Email varchar(255) NOT NULL UNIQUE, CEP int, Phone1 varchar(32), Phone2 varchar(32), CPF varchar(16) NOT NULL, Password LargeBinary NOT NULL, Birthday varchar(16), Sex boolean, Active boolean default TRUE, PRIMARY KEY (ID));
 
 INSERT INTO clients (Name, Email, CEP, Phone1, CPF, Password, Birthday)
 VALUES ('John', 'john@mail.jonh', '13456-098', '(19)987654321', '08965632154', 'ohlala', '01121998');

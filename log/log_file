@@ -1,0 +1,202 @@
+[2018-04-13 19:22:21,253] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-04-13 19:22:21,257] INFO in _internal:  * Restarting with stat
+[2018-04-13 19:22:22,548] WARNING in _internal:  * Debugger is active!
+[2018-04-13 19:22:22,549] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-13 19:22:32,064] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 19:22:32,065] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 19:22:32,203] INFO in client: Inseriu cliente com ID = 6 e email = songoku@ssj.god
+[2018-04-13 19:22:32,204] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "POST /api/client HTTP/1.1" 200 -
+[2018-04-13 19:22:32,220] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-13 19:22:32,221] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 19:22:32,230] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-13 19:22:32,240] INFO in user_access: Fazendo login com email = songoku@ssj.god
+[2018-04-13 19:22:32,250] INFO in user_access: Login com sucesso
+[2018-04-13 19:22:32,251] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "POST /api/useraccess HTTP/1.1" 200 -
+[2018-04-13 19:22:32,263] INFO in user_access: Tentando acessar area com autorização
+[2018-04-13 19:22:32,264] INFO in user_access: Token válido
+[2018-04-13 19:22:32,266] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "GET /api/useraccess?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjM2NjE3NTJ9.W9mGlUCOAbZSGZjZ6hCynwwoqy5i2cuY4AejL1rAtTE HTTP/1.1" 200 -
+[2018-04-13 19:22:32,369] INFO in client: Removeu cliente(s) com ID = 6
+[2018-04-13 19:22:32,371] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 19:22:32] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:08:52,245] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-04-13 20:08:52,267] INFO in _internal:  * Restarting with stat
+[2018-04-13 20:08:53,889] WARNING in _internal:  * Debugger is active!
+[2018-04-13 20:08:53,890] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-13 20:08:59,292] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:08:59,295] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:08:59,434] INFO in client: Inseriu cliente com ID = 6 e email = songoku@ssj.god
+[2018-04-13 20:08:59,436] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "POST /api/client HTTP/1.1" 200 -
+[2018-04-13 20:08:59,449] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-13 20:08:59,450] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:08:59,464] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-13 20:08:59,473] INFO in user_access: Fazendo login com email = songoku@ssj.god
+[2018-04-13 20:08:59,490] INFO in user_access: Login com sucesso
+[2018-04-13 20:08:59,491] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "POST /api/useraccess HTTP/1.1" 200 -
+[2018-04-13 20:08:59,502] INFO in user_access: Tentando acessar area com autorização
+[2018-04-13 20:08:59,503] INFO in user_access: Token válido
+[2018-04-13 20:08:59,504] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "GET /api/useraccess?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjM2NjQ1Mzl9.2WGB27h824mPVGXNzJHiviNeq3h4VxlyGmgQeMuzC14 HTTP/1.1" 200 -
+[2018-04-13 20:08:59,601] INFO in client: Removeu cliente(s) com ID = 6
+[2018-04-13 20:08:59,602] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:08:59] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:17:16,615] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/user_access.py', reloading
+[2018-04-13 20:17:16,738] INFO in _internal:  * Restarting with stat
+[2018-04-13 20:17:18,202] WARNING in _internal:  * Debugger is active!
+[2018-04-13 20:17:18,203] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-13 20:17:32,122] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:17:32,124] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:17:32] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:17:32,247] INFO in client: Inseriu cliente com ID = 6 e email = songoku@ssj.god
+[2018-04-13 20:17:32,249] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:17:32] "POST /api/client HTTP/1.1" 200 -
+[2018-04-13 20:17:32,264] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-13 20:17:32,266] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:17:32] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:17:32,275] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:17:32] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-13 20:17:32,285] INFO in user_access: Fazendo login com email = songoku@ssj.god
+[2018-04-13 20:17:32,295] INFO in user_access: Login com sucesso
+[2018-04-13 20:17:32,351] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:17:32] "POST /api/useraccess HTTP/1.1" 500 -
+[2018-04-13 20:18:02,909] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/user_access.py', reloading
+[2018-04-13 20:18:03,035] INFO in _internal:  * Restarting with stat
+[2018-04-13 20:18:04,266] WARNING in _internal:  * Debugger is active!
+[2018-04-13 20:18:04,267] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-13 20:18:10,417] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:18:10,419] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:10] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:18:10,588] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:10] "POST /api/client HTTP/1.1" 500 -
+[2018-04-13 20:18:36,920] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:18:36,922] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:36] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:18:45,774] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:18:45,776] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:45] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:18:45,901] INFO in client: Removeu cliente(s) com ID = 6
+[2018-04-13 20:18:45,902] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:45] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:18:51,392] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:18:51,394] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:18:51,504] INFO in client: Inseriu cliente com ID = 6 e email = songoku@ssj.god
+[2018-04-13 20:18:51,505] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "POST /api/client HTTP/1.1" 200 -
+[2018-04-13 20:18:51,519] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-13 20:18:51,521] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:18:51,534] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-13 20:18:51,544] INFO in user_access: Fazendo login com email = songoku@ssj.god
+[2018-04-13 20:18:51,550] INFO in user_access: Login com sucesso
+[2018-04-13 20:18:51,552] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "POST /api/useraccess HTTP/1.1" 200 -
+[2018-04-13 20:18:51,560] INFO in user_access: Tentando acessar area com autorização
+[2018-04-13 20:18:51,561] INFO in user_access: Token válido
+[2018-04-13 20:18:51,562] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "GET /api/useraccess?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjM2NjUxMzF9.ws2G5LnpsQWYSm75Fg6SfiK3ud2GVHcmBgB25XsQghU HTTP/1.1" 200 -
+[2018-04-13 20:18:51,660] INFO in client: Removeu cliente(s) com ID = 6
+[2018-04-13 20:18:51,661] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:18:51] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:20:44,753] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/user_access.py', reloading
+[2018-04-13 20:20:44,880] INFO in _internal:  * Restarting with stat
+[2018-04-13 20:20:46,153] WARNING in _internal:  * Debugger is active!
+[2018-04-13 20:20:46,154] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-13 20:46:28,166] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-04-13 20:46:28,169] INFO in _internal:  * Restarting with stat
+[2018-04-13 20:46:29,420] WARNING in _internal:  * Debugger is active!
+[2018-04-13 20:46:29,459] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-13 20:46:41,767] INFO in client: Pegou IDs de todos clientes
+[2018-04-13 20:46:41,768] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:41] "GET /api/client HTTP/1.1" 200 -
+[2018-04-13 20:46:41,904] INFO in client: Inseriu cliente com ID = 6 e email = songoku@ssj.god
+[2018-04-13 20:46:41,905] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:41] "POST /api/client HTTP/1.1" 200 -
+[2018-04-13 20:46:41,921] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-13 20:46:41,922] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:41] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-13 20:46:41,931] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:41] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-13 20:46:41,942] INFO in user_access: Fazendo login com email = songoku@ssj.god
+[2018-04-13 20:46:41,952] INFO in user_access: Login com sucesso
+[2018-04-13 20:46:41,953] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:41] "POST /api/useraccess HTTP/1.1" 200 -
+[2018-04-13 20:46:41,963] INFO in user_access: Tentando acessar area com autorização
+[2018-04-13 20:46:41,964] INFO in user_access: Token válido
+[2018-04-13 20:46:41,965] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:41] "GET /api/useraccess?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MjM2NjY4MDF9.B7YpRvkVveTnb0m-GDQ-EsyYI01mCiz1yKi_rPQWg4E HTTP/1.1" 200 -
+[2018-04-13 20:46:42,093] INFO in client: Removeu cliente(s) com ID = 6
+[2018-04-13 20:46:42,094] INFO in _internal: 127.0.0.1 - - [13/Apr/2018 20:46:42] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 19:47:18,068] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-04-20 19:47:18,148] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:47:19,525] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:47:19,526] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:49:33,327] INFO in client: Pegou IDs de todos clientes
+[2018-04-20 19:49:33,329] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:49:33] "GET /api/client HTTP/1.1" 200 -
+[2018-04-20 19:50:54,545] INFO in client: Inseriu cliente com ID = 6 e email = gooku@ssj.god
+[2018-04-20 19:50:54,547] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:50:54] "POST /api/client HTTP/1.1" 200 -
+[2018-04-20 19:51:36,521] INFO in client: Atualizou
+[2018-04-20 19:51:36,522] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:51:36] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 19:52:15,229] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 19:52:15,377] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:52:21,184] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:52:21,204] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:52:21,258] INFO in client: Atualizou
+[2018-04-20 19:52:21,259] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:52:21] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 19:52:52,709] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 19:52:52,843] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:52:54,171] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:52:54,172] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:53:01,357] INFO in client: Atualizou
+[2018-04-20 19:53:01,358] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:53:01] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 19:53:21,597] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 19:53:21,731] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:53:23,046] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:53:23,047] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:53:28,424] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:53:28] "PUT /api/client HTTP/1.1" 500 -
+[2018-04-20 19:56:29,458] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-04-20 19:56:29,459] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:56:30,762] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:56:30,763] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:57:38,515] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:57:38] "PUT /api/client HTTP/1.1" 500 -
+[2018-04-20 19:58:37,793] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 19:58:37,936] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:58:39,408] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:58:39,409] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:58:42,112] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:58:42] "PUT /api/client HTTP/1.1" 500 -
+[2018-04-20 19:59:09,922] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 19:59:10,062] INFO in _internal:  * Restarting with stat
+[2018-04-20 19:59:11,482] WARNING in _internal:  * Debugger is active!
+[2018-04-20 19:59:11,483] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 19:59:15,613] INFO in client: Atualizou
+[2018-04-20 19:59:15,614] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:59:15] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 19:59:50,124] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-20 19:59:50,126] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 19:59:50] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:04:04,229] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 20:04:04,374] INFO in _internal:  * Restarting with stat
+[2018-04-20 20:04:05,867] WARNING in _internal:  * Debugger is active!
+[2018-04-20 20:04:05,868] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 20:04:10,256] INFO in client: Atualizou cliente com ID=6
+[2018-04-20 20:04:10,258] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:04:10] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 20:04:20,654] INFO in client: Atualizou cliente com ID=9
+[2018-04-20 20:04:20,655] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:04:20] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 20:04:29,457] INFO in client: Pegou dados de cliente(s) com ID = 9
+[2018-04-20 20:04:29,458] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:04:29] "GET /api/client?clientid=9 HTTP/1.1" 200 -
+[2018-04-20 20:04:32,808] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:04:32] "GET /api/client?clientid=10 HTTP/1.1" 500 -
+[2018-04-20 20:04:52,396] INFO in client: Atualizou cliente com ID=10
+[2018-04-20 20:04:52,399] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:04:52] "PUT /api/client HTTP/1.1" 200 -
+[2018-04-20 20:04:55,583] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:04:55] "GET /api/client?clientid=10 HTTP/1.1" 500 -
+[2018-04-20 20:05:01,122] INFO in client: Tentou inserir cliente com email = gooku@ssj.god. Email já cadastrado
+[2018-04-20 20:05:01,123] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:05:01] "POST /api/client HTTP/1.1" 500 -
+[2018-04-20 20:05:10,270] INFO in client: Pegou IDs de todos clientes
+[2018-04-20 20:05:10,272] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:05:10] "GET /api/client HTTP/1.1" 200 -
+[2018-04-20 20:05:24,907] INFO in client: Pegou dados de cliente(s) com ID = 9
+[2018-04-20 20:05:24,909] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:05:24] "GET /api/client?clientid=9 HTTP/1.1" 200 -
+[2018-04-20 20:42:46,371] INFO in _internal:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+[2018-04-20 20:42:46,373] INFO in _internal:  * Restarting with stat
+[2018-04-20 20:42:47,650] WARNING in _internal:  * Debugger is active!
+[2018-04-20 20:42:47,651] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 20:43:23,144] INFO in client: DEsativou cliente(s) com ID = 6
+[2018-04-20 20:43:23,146] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:43:23] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:43:41,659] INFO in client: Inseriu cliente com ID = 6 e email = gooku@ssj.god
+[2018-04-20 20:43:41,661] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:43:41] "POST /api/client HTTP/1.1" 200 -
+[2018-04-20 20:43:53,582] INFO in client: DEsativou cliente(s) com ID = 6
+[2018-04-20 20:43:53,583] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:43:53] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:43:58,989] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-20 20:43:58,990] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:43:58] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:44:33,275] INFO in _internal:  * Detected change in '/home/victor/Documents/uni/mc851/ecommerce/api/client.py', reloading
+[2018-04-20 20:44:33,403] INFO in _internal:  * Restarting with stat
+[2018-04-20 20:44:34,748] WARNING in _internal:  * Debugger is active!
+[2018-04-20 20:44:34,749] INFO in _internal:  * Debugger pin code: 898-707-757
+[2018-04-20 20:44:39,954] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-20 20:44:39,956] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:44:39] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:44:59,630] INFO in client: Tentou inserir cliente com email = gooku@ssj.god. Email já cadastrado
+[2018-04-20 20:44:59,631] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:44:59] "POST /api/client HTTP/1.1" 500 -
+[2018-04-20 20:45:28,952] INFO in client: Pegou dados de cliente(s) com ID = 6
+[2018-04-20 20:45:28,953] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:45:28] "GET /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:45:41,518] INFO in client: DEsativou cliente(s) com ID = 6
+[2018-04-20 20:45:41,519] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:45:41] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:45:43,707] INFO in client: DEsativou cliente(s) com ID = 6
+[2018-04-20 20:45:43,709] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:45:43] "DELETE /api/client?clientid=6 HTTP/1.1" 200 -
+[2018-04-20 20:45:50,908] INFO in client: Pegou dados de cliente(s) com ID = 1
+[2018-04-20 20:45:50,910] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:45:50] "GET /api/client?clientid=1 HTTP/1.1" 200 -
+[2018-04-20 20:45:53,905] INFO in client: Pegou dados de cliente(s) com ID = 2
+[2018-04-20 20:45:53,907] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:45:53] "GET /api/client?clientid=2 HTTP/1.1" 200 -
+[2018-04-20 20:45:59,430] INFO in client: DEsativou cliente(s) com ID = 2
+[2018-04-20 20:45:59,432] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:45:59] "DELETE /api/client?clientid=2 HTTP/1.1" 200 -
+[2018-04-20 20:46:03,892] INFO in client: Pegou dados de cliente(s) com ID = 2
+[2018-04-20 20:46:03,893] INFO in _internal: 127.0.0.1 - - [20/Apr/2018 20:46:03] "GET /api/client?clientid=2 HTTP/1.1" 200 -

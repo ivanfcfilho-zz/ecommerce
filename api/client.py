@@ -15,7 +15,7 @@ class Client(Resource):
         clientid = request.args.get('clientid')
         if clientid == None:
             conn = db_connect.connect() # connect to database
-            query = conn.execute("select ID from clients") # performs query
+            query = conn.execute("select ID from clients WHERE Active = 'TRUE'") # performs query
             logging.info("Pegou IDs de todos clientes") # add on log
             return {'clients': [i[0] for i in query.cursor.fetchall()]} #fetches the id from all users
         else:
@@ -68,7 +68,9 @@ class Client(Resource):
         if data is None:
             return {'Code':2, 'Message':'Missing Parameter'}, 500
         dic = {}
-        clientid = data.get("clientid")
+        clientid = data.get("ID")
+        if clientid is None:
+            return {'Code':1, 'Message':'Missing Parameter: ID'}, 500
         name = data.get("name")
         cep = data.get("cep")
         phone1 = data.get("phone1")
@@ -110,7 +112,7 @@ class Client(Resource):
         sql += ";"
         conn = db_connect.connect()
         conn.execute(sql, clientid)
-        logging.info("DEsativou cliente(s) com ID = {}".format(clientid)) # add on log
+        logging.info("Desativou cliente(s) com ID = {}".format(clientid)) # add on log
         return {"Message":"Delete Success"}
         
         

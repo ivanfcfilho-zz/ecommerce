@@ -7,7 +7,7 @@ import argon2
 import os
 
 connect_str = "dbname='clientbase2' user='andre' host='localhost' " + \
-                  "password='binho250'"
+                  "password='--------'"
 
 class Client(Resource):
 

@@ -1,20 +1,20 @@
 from flask_restful import Resource
 from flask import jsonify
 from flask import request
-from sqlalchemy import create_engine
-from sqlalchemy import exc
+import psycopg2
 import logging
 import argon2
 import os
 
-db_connect = create_engine('sqlite:///data/db/clientbase.db')
+connect_str = "dbname='clientbase2' user='andre' host='localhost' " + \
+                  "password='binho250'"
 
 class Client(Resource):
 
     def get(self):
         clientid = request.args.get('clientid')
         if clientid == None:
-            conn = db_connect.connect() # connect to database
+            conn = psycopg2.connect(connect_str) # connect to database
             query = conn.execute("select ID from clients WHERE Active = 'TRUE'") # performs query
             logging.info("Pegou IDs de todos clientes") # add on log
             return {'clients': [i[0] for i in query.cursor.fetchall()]} #fetches the id from all users
@@ -24,7 +24,8 @@ class Client(Resource):
             for i in range(1, len(clientid)):
                 sql += " OR id=?"
             sql += ";"
-            conn = db_connect.connect()
+            conn = psycopg2.connect(connect_str)
+            cursor = conn
             query = conn.execute(sql, clientid)
             result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
             logging.info("Pegou dados de cliente(s) com ID = {}".format(clientid)) # add on log
@@ -52,17 +53,16 @@ class Client(Resource):
         pas = salt + pas
         
         try:
-            conn = db_connect.connect()
+            conn = psycopg2.connect(connect_str)
             query = conn.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (name, email, cep, phone1, phone2, cpf, pas, birthday, sex))
             new_id = query.lastrowid
             logging.info("Inseriu cliente com ID = {} e email = {}".format(new_id, email)) # add on log
             return {"Message":"Post Success", "Client ID":new_id}
-        except exc.IntegrityError:
-            logging.info("Tentou inserir cliente com email = {}. Email já cadastrado".format(email)) # add on log
+        except:
+            logging.info("Tentou inserir cliente com email = {}. Email ja cadastrado".format(email)) # add on log
             return {'Code':1, 'Message':'Email already registered'}, 500
-        return {'Code':3, 'Message':'Internal Error'}, 500
-            
+
     def put(self):
         data = request.get_json()
         if data is None:
@@ -94,11 +94,11 @@ class Client(Resource):
         query += "WHERE ID = " + clientid + ";" 
         
         try:
-            conn = db_connect.connect()
+            conn = psycopg2.connect(connect_str)
             conn.execute(query)
             logging.info("Atualizou cliente com ID={}".format(clientid)) # add on log
             return {"Message":"Put Success"}
-        except exc.IntegrityError:
+        except:
             logging.info("Erro ao tentar fazer update:"+query) # add on log
             return {'Code':1, 'Message':'Internal Error'}, 500
 
@@ -110,7 +110,7 @@ class Client(Resource):
         for i in range(1, len(clientid)):
             sql += " OR ID=?"
         sql += ";"
-        conn = db_connect.connect()
+        conn = psycopg2.connect(connect_str)
         conn.execute(sql, clientid)
         logging.info("Desativou cliente(s) com ID = {}".format(clientid)) # add on log
         return {"Message":"Delete Success"}

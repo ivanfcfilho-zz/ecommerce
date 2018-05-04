@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from sqlalchemy import create_engine
+import psycopg2
 from flask import jsonify
 from flask import request
 import logging
@@ -7,13 +7,14 @@ import datetime
 import argon2
 import jwt
 
-db_connect = create_engine('sqlite:///data/db/clientbase.db')
+connect_str = "dbname='clientbase2' user='andre' host='localhost' " + \
+                  "password='binho250'"
 secret = 'qualquercoisa'
 
 class UserAccess(Resource):
 
     def get(self):
-        logging.info("Tentando acessar area com autorização") # add on log
+        logging.info("Tentando acessar area com autorizacao") # add on log
         token = request.args.get('token')
         if token is None:
             logging.info("{}: Sem token") # add on log
@@ -21,7 +22,7 @@ class UserAccess(Resource):
         try:
             token = token.encode()
             jwt.decode(token, secret, algorithm='HS256')
-            logging.info("Token válido") # add on log
+            logging.info("Token valido") # add on log
             return {"Message":"Success"}
         except jwt.exceptions.ExpiredSignatureError:
             logging.info("Token expirado") # add on log
@@ -42,11 +43,11 @@ class UserAccess(Resource):
         
         logging.info("Fazendo login com email = {}".format(email)) # add on log
         # Get the password in the db
-        conn = db_connect.connect()
+        conn = psycopg2.connect(connect_str)
         query = conn.execute("select Password from clients where Email=?", email)
         result = query.cursor.fetchone()
         if result is None:
-            logging.info("Email não encontrado") # add on log
+            logging.info("Email nao encontrado") # add on log
             return {'Code':1, 'Message':"Password or email do not match"}, 500
         result = result[0]
         salt = result[:16]

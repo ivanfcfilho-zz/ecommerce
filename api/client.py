@@ -7,7 +7,7 @@ import argon2
 import os
 
 connect_str = "dbname='clientbase2' user='andre' host='localhost' " + \
-                  "password='--------'"
+                  "password='binho250'"
 
 class Client(Resource):
 
@@ -15,20 +15,21 @@ class Client(Resource):
         clientid = request.args.get('clientid')
         if clientid == None:
             conn = psycopg2.connect(connect_str) # connect to database
-            query = conn.execute("select ID from clients WHERE Active = 'TRUE'") # performs query
+            cursor = conn.cursor()
+            cursor.execute("select ID from clients WHERE Active = 'TRUE'") # performs query
             logging.info("Pegou IDs de todos clientes") # add on log
-            return {'clients': [i[0] for i in query.cursor.fetchall()]} #fetches the id from all users
+            return {'clients': [i[0] for i in cursor.fetchall()]} #fetches the id from all users
         else:
             # Select all data, but password
-            sql = "SELECT Name, Email, CEP, Phone1, Phone2, CPF, Birthday, Sex, Active FROM clients WHERE ID=?"
-            for i in range(1, len(clientid)):
-                sql += " OR id=?"
+            sql = "SELECT Name, Email, CEP, Phone1, Phone2, CPF, Birthday, Sex, Active FROM clients WHERE ID={}".format(clientid)
             sql += ";"
             conn = psycopg2.connect(connect_str)
-            cursor = conn
-            query = conn.execute(sql, clientid)
-            result = {'data': [dict(zip(tuple(query.keys()), i)) for i in query.cursor]}
-            logging.info("Pegou dados de cliente(s) com ID = {}".format(clientid)) # add on log
+            cursor = conn.cursor()
+            cursor.execute(sql, clientid)
+            rows = cursor.fetchall()
+            column_names = [row[0] for row in cursor.description]
+            result = {'data': [dict(zip(tuple(column_names), row)) for row in rows]}
+            logging.info("Pegou dados de cliente(s) com ID = {}".format(column_names[1])) # add on log
             return jsonify(result)
 
     def post(self):
@@ -41,7 +42,7 @@ class Client(Resource):
         phone1 = data.get("phone1")
         phone2 = data.get("phone2")
         cpf = data.get("cpf")
-        password = data.get("password")
+        password = data.get("password").encode("utf-8")
         birthday = data.get("birthday")
         sex = data.get("sex")
         if email is None or name is None or phone1 is None or cpf is None or password is None :
@@ -54,10 +55,19 @@ class Client(Resource):
         
         try:
             conn = psycopg2.connect(connect_str)
-            query = conn.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
-                                             " values (?, ?, ?, ?, ?, ?, ?, ?, ?)", (name, email, cep, phone1, phone2, cpf, pas, birthday, sex))
-            new_id = query.lastrowid
+            cursor = conn.cursor()
+            password = password.decode("utf-8")
+            #logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
+                                             #" values ({}, {}, {}, {}, {}, {}, {}, {}, {});".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
+            cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
+                                             " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
+            new_id = cursor.lastrowid
+            conn.commit()
+            cursor.close()
+            conn.close()
             logging.info("Inseriu cliente com ID = {} e email = {}".format(new_id, email)) # add on log
+            #cursor.execute("select * from clients;")
+            #rows = cursor.fetchall()
             return {"Message":"Post Success", "Client ID":new_id}
         except:
             logging.info("Tentou inserir cliente com email = {}. Email ja cadastrado".format(email)) # add on log
@@ -95,7 +105,8 @@ class Client(Resource):
         
         try:
             conn = psycopg2.connect(connect_str)
-            conn.execute(query)
+            cursor = conn.cursor()
+            cursor.execute(query)
             logging.info("Atualizou cliente com ID={}".format(clientid)) # add on log
             return {"Message":"Put Success"}
         except:
@@ -111,7 +122,8 @@ class Client(Resource):
             sql += " OR ID=?"
         sql += ";"
         conn = psycopg2.connect(connect_str)
-        conn.execute(sql, clientid)
+        cursor = conn.cursor()
+        cursor.execute(sql, clientid)
         logging.info("Desativou cliente(s) com ID = {}".format(clientid)) # add on log
         return {"Message":"Delete Success"}
         

@@ -44,18 +44,19 @@ class UserAccess(Resource):
         logging.info("Fazendo login com email = {}".format(email)) # add on log
         # Get the password in the db
         conn = psycopg2.connect(connect_str)
-        query = conn.execute("select Password from clients where Email=?", email)
-        result = query.cursor.fetchone()
+        cursor = conn.cursor()
+        cursor.execute("select Password from clients where Email='{}'".format(email))
+        result = cursor.fetchone()
         if result is None:
             logging.info("Email nao encontrado") # add on log
             return {'Code':1, 'Message':"Password or email do not match"}, 500
-        result = result[0]
-        salt = result[:16]
-        pas_true = result[16:]
-        pas = argon2.argon2_hash(password, salt)
+        #result = result[0]
+        #salt = result[:16]
+        pas_true = result#[16:]
+        #pas = argon2.argon2_hash(password, salt)
         
         # Compare the password
-        if pas == pas_true:
+        if password == pas_true:
             payload = {'exp':datetime.datetime.utcnow() + datetime.timedelta(hours=1) } #token dura 1h
             token = jwt.encode(payload, secret, algorithm='HS256')
             token = token.decode("utf-8") 

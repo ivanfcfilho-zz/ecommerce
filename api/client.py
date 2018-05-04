@@ -42,7 +42,7 @@ class Client(Resource):
         phone1 = data.get("phone1")
         phone2 = data.get("phone2")
         cpf = data.get("cpf")
-        password = data.get("password").encode("utf-8")
+        password = data.get("password")
         birthday = data.get("birthday")
         sex = data.get("sex")
         if email is None or name is None or phone1 is None or cpf is None or password is None :
@@ -56,7 +56,7 @@ class Client(Resource):
         try:
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
-            password = password.decode("utf-8")
+            password = password
             #logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              #" values ({}, {}, {}, {}, {}, {}, {}, {}, {});".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
@@ -101,12 +101,15 @@ class Client(Resource):
             if value is not None:
                 query += key + " = '" + str(value) + "', "
         query = query[:-2] + " "
-        query += "WHERE ID = " + clientid + ";" 
+        query += "WHERE ID = " + str(clientid) + ";"
         
         try:
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
             cursor.execute(query)
+            conn.commit()
+            cursor.close()
+            conn.close()
             logging.info("Atualizou cliente com ID={}".format(clientid)) # add on log
             return {"Message":"Put Success"}
         except:
@@ -117,13 +120,16 @@ class Client(Resource):
         clientid = request.args.get('clientid')
         if clientid is None:
             return {"Code":1, "Message":"Parameter Missing"}, 500
-        sql = "UPDATE clients SET Active = 'FALSE' WHERE ID=?"
+        sql = "UPDATE clients SET Active = 'FALSE' WHERE ID={}".format(clientid[0])
         for i in range(1, len(clientid)):
-            sql += " OR ID=?"
+            sql += " OR ID={}".format(clientid[i])
         sql += ";"
         conn = psycopg2.connect(connect_str)
         cursor = conn.cursor()
         cursor.execute(sql, clientid)
+        conn.commit()
+        cursor.close()
+        conn.close()
         logging.info("Desativou cliente(s) com ID = {}".format(clientid)) # add on log
         return {"Message":"Delete Success"}
         

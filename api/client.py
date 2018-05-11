@@ -59,13 +59,18 @@ class Client(Resource):
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
             password = password
+            logging.info("Vai executar") # add on log
             #logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              #" values ({}, {}, {}, {}, {}, {}, {}, {}, {});".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
+            logging.info("Executou") # add on log
             new_id = cursor.fetchone()[0]
+            logging.info("Vai dar commit") # add on log
             conn.commit()
+            logging.info("Commitou, vai dar close") # add on log
             cursor.close()
+            logging.info("CLose 2") # add on log
             conn.close()
             logging.info("Inseriu cliente com ID = {} e email = {}".format(new_id, email)) # add on log
             #cursor.execute("select * from clients;")

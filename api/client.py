@@ -6,8 +6,9 @@ import logging
 import argon2
 import os
 
-connect_str = "dbname='clientbase2' user='andre' host='localhost' " + \
-                  "password='binho250'"
+connect_str = "dbname='clientbase' user='hyohrpyibspjlg' " \
+              "host='postgres://hyohrpyibspjlg:9429157fb304bad69a62bdcb80c0a59de382830e03be8fa30450bdde368fd5f6@ec2-54-83-19-244.compute-1.amazonaws.com:5432/d5th3ut0vlb2n5' " + \
+                  "password='9429157fb304bad69a62bdcb80c0a59de382830e03be8fa30450bdde368fd5f6'"                  "password='binho250'"
 
 class Client(Resource):
 

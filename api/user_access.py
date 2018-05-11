@@ -7,8 +7,8 @@ import datetime
 import argon2
 import jwt
 
-connect_str = "dbname='clientbase2' user='andre' host='localhost' " + \
-                  "password='binho250'"
+connect_str = "dbname='clientbase' user='postgress' host='localhost' " + \
+                  "password=''"
 secret = 'qualquercoisa'
 
 class UserAccess(Resource):

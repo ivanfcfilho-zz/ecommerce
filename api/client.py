@@ -50,8 +50,8 @@ class Client(Resource):
 
         # Encrypting the password
         salt = os.urandom(16)
-        pas = argon2.argon2_hash(password, salt)
-        pas = salt + pas
+        #pas = argon2.argon2_hash(password, salt)
+        #pas = salt + pas
         
         try:
             conn = psycopg2.connect(connect_str)
@@ -60,8 +60,8 @@ class Client(Resource):
             #logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              #" values ({}, {}, {}, {}, {}, {}, {}, {}, {});".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
-                                             " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
-            new_id = cursor.lastrowid
+                                             " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
+            new_id = cursor.fetchone()[0]
             conn.commit()
             cursor.close()
             conn.close()

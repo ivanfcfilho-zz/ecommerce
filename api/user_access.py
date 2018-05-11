@@ -52,10 +52,12 @@ class UserAccess(Resource):
             return {'Code':1, 'Message':"Password or email do not match"}, 500
         #result = result[0]
         #salt = result[:16]
-        pas_true = result#[16:]
+        pas_true = str(result)[2:]
+        pas_true = pas_true[:-3]
         #pas = argon2.argon2_hash(password, salt)
         
         # Compare the password
+        logging.info("digitado = %s \nverdadeiro = %s", password, pas_true)
         if password == pas_true:
             payload = {'exp':datetime.datetime.utcnow() + datetime.timedelta(hours=1) } #token dura 1h
             token = jwt.encode(payload, secret, algorithm='HS256')

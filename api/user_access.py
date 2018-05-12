@@ -55,7 +55,6 @@ class UserAccess(Resource):
             return {'Code':1, 'Message':"Password or email do not match"}, 500
         #result = result[0]
         #salt = result[:16]
-        logging.info("{}").format(result) # add on log
         pas_true = str(result)[2:]
         pas_true = pas_true[:-3]
         #pas = argon2.argon2_hash(password, salt)

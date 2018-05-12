@@ -60,8 +60,8 @@ class Client(Resource):
             cursor = conn.cursor()
             password = password
             logging.info("Vai executar") # add on log
-            #logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
-                                             #" values ({}, {}, {}, {}, {}, {}, {}, {}, {});".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
+            logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
+                                             " values ({}, {}, {}, {}, {}, {}, {}, {}, {}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             logging.info("Executou") # add on log

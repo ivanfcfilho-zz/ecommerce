@@ -56,7 +56,7 @@ class Client(Resource):
         if birthday is None: 
             birthday = "null"
         if sex is None: 
-            sex = "null"
+            sex = true
 
         # Encrypting the password
         salt = os.urandom(16)

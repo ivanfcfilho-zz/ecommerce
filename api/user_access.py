@@ -48,7 +48,7 @@ class UserAccess(Resource):
         # Get the password in the db
         conn = psycopg2.connect(connect_str)
         cursor = conn.cursor()
-        cursor.execute("select Password, id from clients where Email='{}'".format(email))
+        cursor.execute("select Password from clients where Email='{}'".format(email))
         result = cursor.fetchone()
         if result is None:
             logging.info("Email nao encontrado") # add on log
@@ -56,7 +56,7 @@ class UserAccess(Resource):
         #result = result[0]
         #salt = result[:16]
         logging.info("{}").format(result) # add on log
-        pas_true = str(result[0])[2:]
+        pas_true = str(result)[2:]
         pas_true = pas_true[:-3]
         #pas = argon2.argon2_hash(password, salt)
         
@@ -65,8 +65,7 @@ class UserAccess(Resource):
             payload = {'exp':datetime.datetime.utcnow() + datetime.timedelta(hours=1) } #token dura 1h
             token = jwt.encode(payload, secret, algorithm='HS256')
             token = token.decode("utf-8") 
-            json_out = {'token':token,
-                        'ID': result[1]}
+            json_out = {'token':token}
             logging.info("Login com sucesso") # add on log
             return jsonify(json_out)
         logging.info("Senha errada") # add on log

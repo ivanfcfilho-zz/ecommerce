@@ -83,8 +83,24 @@ class Client(Resource):
         dic = {}
         clientid = data.get("ID")
         email = data.get("email")
-        if clientid is None and email is None:
-            return {'Code':1, 'Message':'Missing Parameter: ID or Email.'}, 500
+        if clientid:
+            conn = psycopg2.connect(connect_str)
+            cursor = conn.cursor()
+            cursor.execute("select 1 from clients where clientid = {};".format(clientid))
+            rows = cursor.fetchall()
+            logging.info(rows)  # add on log
+            if rows is None:
+                return {'Code': 1, 'Message': 'Client does not exist'}, 500
+        elif email:
+            conn = psycopg2.connect(connect_str)
+            cursor = conn.cursor()
+            cursor.execute("select 1 from clients where Email = {};".format(email))
+            rows = cursor.fetchall()
+            logging.info(rows)  # add on log
+            if rows is None:
+                return {'Code': 1, 'Message': 'Client does not exist'}, 500
+        else:
+            return {'Code':2, 'Message':'Missing Parameter: ID or Email.'}, 500
 
         dic["name"] = data.get("name")
         dic["cep"] = data.get("cep")
@@ -116,7 +132,7 @@ class Client(Resource):
             return {"Message":"Put Success"}
         except:
             logging.info("Erro ao tentar fazer update:"+query) # add on log
-            return {'Code':1, 'Message':'Internal Error'}, 500
+            return {'Code':3, 'Message':'Internal Error'}, 500
 
     def delete(self):
         clientid = request.args.get('clientid')

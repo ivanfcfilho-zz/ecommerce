@@ -1,4 +1,4 @@
-ofrom flask_restful import Resource
+from flask_restful import Resource
 from flask import jsonify
 from flask import request
 import psycopg2

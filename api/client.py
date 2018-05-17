@@ -86,7 +86,7 @@ class Client(Resource):
         if clientid:
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
-            cursor.execute("select 1 from clients where clientid = {};".format(clientid))
+            cursor.execute("select 1 from clients where ID = {};".format(clientid))
             rows = cursor.fetchone()
             logging.info(rows)  # add on log
             if rows is None:

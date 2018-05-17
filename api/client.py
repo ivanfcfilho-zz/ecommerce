@@ -87,7 +87,7 @@ class Client(Resource):
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
             cursor.execute("select 1 from clients where clientid = {};".format(clientid))
-            rows = cursor.cursor.fetchone()[0]
+            rows = cursor.fetchone()[0]
             logging.info(rows)  # add on log
             if rows is None:
                 return {'Code': 1, 'Message': 'Client does not exist'}, 500
@@ -95,7 +95,7 @@ class Client(Resource):
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
             cursor.execute("select 1 from clients where Email = '{}';".format(email))
-            rows = cursor.cursor.fetchone()[0]
+            rows = cursor.fetchone()[0]
             logging.info(rows)  # add on log
             if rows is None:
                 return {'Code': 1, 'Message': 'Client does not exist'}, 500

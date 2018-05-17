@@ -94,7 +94,7 @@ class Client(Resource):
         elif email:
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
-            cursor.execute("select 1 from clients where Email = {};".format(email))
+            cursor.execute("select 1 from clients where Email = '{}';".format(email))
             rows = cursor.fetchall()
             logging.info(rows)  # add on log
             if rows is None:

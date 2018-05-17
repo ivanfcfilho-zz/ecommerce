@@ -102,7 +102,7 @@ class Client(Resource):
         if clientid is not None:
             query += "WHERE ID = " + str(clientid) + ";"
         else:
-            query += "WHERE Email = " + str(email) + ";"
+            query += "WHERE Email = '" + str(email) + "';"
         
         try:
             conn = psycopg2.connect(connect_str)

@@ -1,9 +1,8 @@
-from flask_restful import Resource
+ofrom flask_restful import Resource
 from flask import jsonify
 from flask import request
 import psycopg2
 import logging
-import argon2
 import os
 
 connect_str = "dbname=d5th3ut0vlb2n5 user=hyohrpyibspjlg " \
@@ -58,27 +57,16 @@ class Client(Resource):
         if sex is None: 
             sex = "true"
 
-        # Encrypting the password
-        salt = os.urandom(16)
-        #pas = argon2.argon2_hash(password, salt)
-        #pas = salt + pas
-        
         try:
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
-            password = password
-            logging.info("Vai executar") # add on log
             logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
-            logging.info("Executou") # add on log
             new_id = cursor.fetchone()[0]
-            logging.info("Vai dar commit") # add on log
             conn.commit()
-            logging.info("Commitou, vai dar close") # add on log
             cursor.close()
-            logging.info("CLose 2") # add on log
             conn.close()
             logging.info("Inseriu cliente com ID = {} e email = {}".format(new_id, email)) # add on log
             #cursor.execute("select * from clients;")
@@ -94,29 +82,27 @@ class Client(Resource):
             return {'Code':2, 'Message':'Missing Parameter'}, 500
         dic = {}
         clientid = data.get("ID")
-        if clientid is None:
-            return {'Code':1, 'Message':'Missing Parameter: ID'}, 500
-        name = data.get("name")
-        cep = data.get("cep")
-        phone1 = data.get("phone1")
-        phone2 = data.get("phone2")
-        cpf = data.get("cpf")
-        birthday = data.get("birthday")
-        sex = data.get("sex")
-        dic["name"] = name
-        dic["cep"] = cep
-        dic["phone1"] = phone1
-        dic["phone2"] = phone2
-        dic["cpf"] = cpf
-        dic["birthday"] = birthday
-        dic["sex"] = sex
-        
+        email = data.get("email")
+        if clientid is None and email is None:
+            return {'Code':1, 'Message':'Missing Parameter: ID or Email.'}, 500
+
+        dic["name"] = data.get("name")
+        dic["cep"] = data.get("cep")
+        dic["phone1"] = data.get("phone1")
+        dic["phone2"] = data.get("phone2")
+        dic["cpf"] = data.get("cpf")
+        dic["birthday"] = data.get("birthday")
+        dic["sex"] = data.get("sex")
+
         query = "UPDATE clients SET "
         for key, value in dic.items():
             if value is not None:
                 query += key + " = '" + str(value) + "', "
         query = query[:-2] + " "
-        query += "WHERE ID = " + str(clientid) + ";"
+        if clientid is not None:
+            query += "WHERE ID = " + str(clientid) + ";"
+        else:
+            query += "WHERE Email = " + str(email) + ";"
         
         try:
             conn = psycopg2.connect(connect_str)
@@ -125,7 +111,8 @@ class Client(Resource):
             conn.commit()
             cursor.close()
             conn.close()
-            logging.info("Atualizou cliente com ID={}".format(clientid)) # add on log
+
+            logging.info("Atualizou cliente com ID={} ou Email={}".format(clientid, email)) # add on log
             return {"Message":"Put Success"}
         except:
             logging.info("Erro ao tentar fazer update:"+query) # add on log

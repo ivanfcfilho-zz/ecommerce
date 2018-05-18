@@ -14,13 +14,8 @@ class Client(Resource):
 
     def get(self):
         clientid = request.args.get('clientid')
-        if clientid == None:
-            conn = psycopg2.connect(connect_str) # connect to database
-            cursor = conn.cursor()
-            cursor.execute("select ID from clients WHERE Active = 'TRUE'") # performs query
-            logging.info("Pegou IDs de todos clientes") # add on log
-            return {'clients': [i[0] for i in cursor.fetchall()]} #fetches the id from all users
-        else:
+        email = request.args.get('email')
+        if clientid:
             # Select all data, but password
             sql = "SELECT Name, Email, CEP, Phone1, Phone2, CPF, Birthday, Sex, Active FROM clients WHERE ID={}".format(clientid)
             sql += ";"
@@ -30,8 +25,27 @@ class Client(Resource):
             rows = cursor.fetchall()
             column_names = [row[0] for row in cursor.description]
             result = {'data': [dict(zip(tuple(column_names), row)) for row in rows]}
-            logging.info("Pegou dados de cliente(s) com ID = {}".format(column_names[1])) # add on log
+            logging.info("Pegou dados de cliente(s) com ID = {}".format(ID)) # add on log
             return jsonify(result)
+        elif email:
+            # Select all data, but password
+            sql = "SELECT ID, Name, CEP, Phone1, Phone2, CPF, Birthday, Sex, Active FROM clients WHERE Email={}".format(email)
+            sql += ";"
+            conn = psycopg2.connect(connect_str)
+            cursor = conn.cursor()
+            cursor.execute(sql, clientid)
+            rows = cursor.fetchall()
+            column_names = [row[0] for row in cursor.description]
+            result = {'data': [dict(zip(tuple(column_names), row)) for row in rows]}
+            logging.info("Pegou dados de cliente(s) com Email = {}".format(email)) # add on log
+            return jsonify(result)
+        else:
+            conn = psycopg2.connect(connect_str) # connect to database
+            cursor = conn.cursor()
+            cursor.execute("select ID from clients WHERE Active = 'TRUE'") # performs query
+            logging.info("Pegou IDs de todos clientes") # add on log
+            return {'clients': [i[0] for i in cursor.fetchall()]} #fetches the id from all users
+
 
     def post(self):
         data = request.get_json()

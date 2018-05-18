@@ -25,7 +25,7 @@ class Client(Resource):
             rows = cursor.fetchall()
             column_names = [row[0] for row in cursor.description]
             result = {'data': [dict(zip(tuple(column_names), row)) for row in rows]}
-            logging.info("Pegou dados de cliente(s) com ID = {}".format(ID)) # add on log
+            logging.info("Pegou dados de cliente(s) com ID = {}".format(clientid)) # add on log
             return jsonify(result)
         elif email:
             # Select all data, but password

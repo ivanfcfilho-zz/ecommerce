@@ -29,7 +29,7 @@ class Client(Resource):
             return jsonify(result)
         elif email:
             # Select all data, but password
-            sql = "SELECT ID, Name, CEP, Phone1, Phone2, CPF, Birthday, Sex, Active FROM clients WHERE Email={}".format(email)
+            sql = "SELECT ID, Name, CEP, Phone1, Phone2, CPF, Birthday, Sex, Active FROM clients WHERE Email='{}'".format(email)
             sql += ";"
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
@@ -37,7 +37,7 @@ class Client(Resource):
             rows = cursor.fetchall()
             column_names = [row[0] for row in cursor.description]
             result = {'data': [dict(zip(tuple(column_names), row)) for row in rows]}
-            logging.info("Pegou dados de cliente(s) com Email = {}".format(email)) # add on log
+            logging.info("Pegou dados de cliente(s) com Email = '{}'".format(email)) # add on log
             return jsonify(result)
         else:
             conn = psycopg2.connect(connect_str) # connect to database

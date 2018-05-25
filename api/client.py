@@ -87,7 +87,7 @@ class Client(Resource):
             #rows = cursor.fetchall()
             return {"Message":"Post Success", "Client ID":new_id}
         except (Exception, psycopg2.DatabaseError) as error:
-            logging.info(type(error),error)
+            logging.info(error, error.pgcode)
             return {'Code':1, 'Message':'Erro nos dados passados.'}, 500
 
     def put(self):

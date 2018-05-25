@@ -86,9 +86,10 @@ class Client(Resource):
             #cursor.execute("select * from clients;")
             #rows = cursor.fetchall()
             return {"Message":"Post Success", "Client ID":new_id}
-        except:
+        except (Exception, psycopg2.DatabaseError) as error:
+            logging.info(error)
             logging.info("Tentou inserir cliente com email = {}. Email ja cadastrado".format(email)) # add on log
-            return {'Code':1, 'Message':'Email already registered'}, 500
+            return {'Code':1, 'Message':'Erro nos dados passados.'}, 500
 
     def put(self):
         data = request.get_json()
@@ -164,8 +165,3 @@ class Client(Resource):
         conn.close()
         logging.info("Desativou cliente(s) com ID = {}".format(clientid)) # add on log
         return {"Message":"Delete Success"}
-        
-        
-        
-        
-        

@@ -62,8 +62,6 @@ class Client(Resource):
         sex = data.get("sex")
         if email is None or name is None or phone1 is None or cpf is None or password is None :
             return {'Code':2, 'Message':'Faltando parametros'}, 500
-        if cep is None: 
-            cep = "null"
         if phone2 is None: 
             phone2 = "null"
         if birthday is None: 

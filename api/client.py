@@ -61,7 +61,7 @@ class Client(Resource):
         birthday = data.get("birthday")
         sex = data.get("sex")
         if email is None or name is None or phone1 is None or cpf is None or password is None :
-            return {'Code':2, 'Message':'Missing Parameter'}, 500
+            return {'Code':2, 'Message':'Faltando parametros'}, 500
         if cep is None: 
             cep = "null"
         if phone2 is None: 
@@ -87,10 +87,10 @@ class Client(Resource):
             #rows = cursor.fetchall()
             return {"Message":"Post Success", "Client ID":new_id}
         except (Exception, psycopg2.DatabaseError) as error:
-            logging.info(error.pgcode)
+            logging.info(error)
             if error.pgcode == '23505':
                 return {'Code': 1, 'Message': 'Email já existe.'}, 500
-            return {'Code':3, 'Message':'Erro nos dados passados.'}, 500
+            return {'Code':3, 'Message':'Erro nos dados passados, verifique se está passando todos os dados necessários e se estão no formato correto.'}, 500
 
     def put(self):
         data = request.get_json()

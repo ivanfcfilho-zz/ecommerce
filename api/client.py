@@ -75,7 +75,7 @@ class Client(Resource):
             logging.info("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
                                              " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             cursor.execute("insert into clients (Name, Email, CEP, Phone1, Phone2, CPF, Password, Birthday, Sex)"
-                                             " values ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}') RETURNING id;".format(name, email, cep, phone1, phone2, cpf, password, birthday, sex))
+                                             " values (%s, %s, %d, %s, %s, %s, %s, %s, %s) RETURNING id;", (name, email, cep, phone1, phone2, cpf, password, birthday, sex))
             new_id = cursor.fetchone()[0]
             conn.commit()
             cursor.close()

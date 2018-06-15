@@ -3,7 +3,6 @@ from flask import jsonify
 from flask import request
 import psycopg2
 import logging
-import os
 
 connect_str = "dbname=d5th3ut0vlb2n5 user=hyohrpyibspjlg " \
               "host=ec2-54-83-19-244.compute-1.amazonaws.com " \
@@ -171,24 +170,20 @@ class ClientEmail(Resource):
     def put(self):
         data = request.get_json()
         if data is None:
-            return {'Code':1, 'Message': 'Missing Parameter'}, 500
+            return {'Code': 1, 'Message': 'Missing Parameter'}, 500
 
         email = data.get("email")
         password = data.get("password")
         new_email = data.get("new_email")
-        logging.info("Passou dados: email = "+email+", password = "+password+", new_email = "+new_email)
         if not(email and password and new_email):
-            return {'Code':1, 'Message': 'Missing Parameters. Required: email, password, new_email'}, 500
+            return {'Code': 1, 'Message': 'Missing Parameters. Required: email, password, new_email'}, 500
 
         conn = psycopg2.connect(connect_str)
         cursor = conn.cursor()
         cursor.execute("select ID from clients where Email = %s and Password = %s;", (email, password))
         rows = cursor.fetchone()
-        logging.info(rows)
         if rows is None:
-            return {'Code':2, 'Message': 'Email or password does not match'}, 500
-
-        query = "Atualizou cliente com ID=%s de Email=%s para novo Email=%s"
+            return {'Code': 2, 'Message': 'Email or password does not match'}, 500
         try:
             conn = psycopg2.connect(connect_str)
             cursor = conn.cursor()
@@ -196,8 +191,8 @@ class ClientEmail(Resource):
             conn.commit()
             cursor.close()
             conn.close()
-            logging.info("Atualizou cliente com ID=%s de Email=%s para novo Email=%s", (rows, email, new_email))  # add on log
+            logging.info("Atualizou cliente com ID={} de Email={} para novo Email={}".format(rows, email, new_email))
             return {"Message": "Put Success"}
         except:
-            logging.info("Erro ao tentar fazer mudança de email: " + query, (rows, email, new_email))  # add on log
+            logging.info("Erro ao tentar fazer mudança de email: email = "+email+", new_email = "+new_email)
             return {'Code': 3, 'Message': 'Internal Error'}, 500

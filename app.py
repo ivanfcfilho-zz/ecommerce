@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from  api.client import Client
+from  api.client import Client, ClientEmail
 from api.user_access import UserAccess
 from logging.config import dictConfig
 dictConfig({
@@ -31,6 +31,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 api.add_resource(Client, '/api/client')
 api.add_resource(UserAccess, '/api/useraccess')
+api.add_resource(ClientEmail, '/api/client/email')
 
 if __name__ == '__main__':
     app.run(debug=True)

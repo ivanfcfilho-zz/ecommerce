@@ -164,3 +164,39 @@ class Client(Resource):
         conn.close()
         logging.info("Desativou cliente(s) com ID = {}".format(clientid)) # add on log
         return {"Message":"Delete Success"}
+
+
+class ClientEmail(Resource):
+
+    def put(self):
+        data = request.get_json()
+        if data is None:
+            return {'Code':1, 'Message': 'Missing Parameter'}, 500
+        dic = {}
+        email = data.get("email")
+        password = data.get("password")
+        new_email = data.get("new_email")
+        if not(email and password and new_email):
+            return {'Code':1, 'Message': 'Missing Parameters. Required: email, password, new_email'}, 500
+
+        conn = psycopg2.connect(connect_str)
+        cursor = conn.cursor()
+        cursor.execute("select ID from clients where Email = %s and Password = %s;", (new_email, password))
+        rows = cursor.fetchone()
+        logging.info(rows)
+        if rows is None:
+            return {'Code':2, 'Message': 'Email or password does not match'}, 500
+
+        query = "Atualizou cliente com ID=%s de Email=%s para novo Email=%s"
+        try:
+            conn = psycopg2.connect(connect_str)
+            cursor = conn.cursor()
+            cursor.execute("UPDATE clients SET Email=%s WHERE ID = %s", (new_email, rows))
+            conn.commit()
+            cursor.close()
+            conn.close()
+            logging.info("Atualizou cliente com ID=%s de Email=%s para novo Email=%s", (rows, email, new_email))  # add on log
+            return {"Message": "Put Success"}
+        except:
+            logging.info("Erro ao tentar fazer mudança de email: " + query, (rows, email, new_email))  # add on log
+            return {'Code': 3, 'Message': 'Internal Error'}, 500

@@ -172,16 +172,17 @@ class ClientEmail(Resource):
         data = request.get_json()
         if data is None:
             return {'Code':1, 'Message': 'Missing Parameter'}, 500
-        dic = {}
+
         email = data.get("email")
         password = data.get("password")
         new_email = data.get("new_email")
+        logging.info("Passou dados: email = "+email+", password = "+password+", new_email = "+new_email)
         if not(email and password and new_email):
             return {'Code':1, 'Message': 'Missing Parameters. Required: email, password, new_email'}, 500
 
         conn = psycopg2.connect(connect_str)
         cursor = conn.cursor()
-        cursor.execute("select ID from clients where Email = %s and Password = %s;", (new_email, password))
+        cursor.execute("select ID from clients where Email = %s and Password = %s;", (email, password))
         rows = cursor.fetchone()
         logging.info(rows)
         if rows is None:
